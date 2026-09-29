@@ -1,7 +1,7 @@
 // Vercel serverless function: calls Groq to split a task into subtasks.
 // The API key is read from the GROQ_API_KEY environment variable (never in frontend code).
 
-const MODEL = process.env.GROQ_MODEL || "llama-3.1-8b-instant"; // change here (or via env var) if Groq retires the model
+const MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-20b"; // change here (or via env var) if Groq retires the model
 const MAX_TASK_LENGTH = 200;
 const MAX_SUBTASKS = 10;
 const LIMIT_PER_MINUTE = 10;
@@ -45,7 +45,10 @@ export default async function handler(req, res) {
         ],
       }),
     });
-    if (!response.ok) return res.status(502).json({ error: "The AI service returned an error. Try again." });
+    if (!response.ok) {
+      console.error("Groq error", response.status, await response.text()); // shows in your terminal / Vercel logs
+      return res.status(502).json({ error: "The AI service returned an error. Try again." });
+    }
 
     const data = await response.json();
     const parsed = JSON.parse(data.choices?.[0]?.message?.content || "{}");
