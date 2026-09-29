@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Lora:wght@400;600&display=swap");
+
+:root {
+  --desk: #5d7468; --paper: #fdfcf6; --rule: #c3d7e8; --margin: #df7a80;
+  --ink: #1e2a48; --muted: #66708a; --accent: #2a4a9a; --danger: #b3261e;
+  --sticky: #fff1a0; --line: 32px;
+  --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--desk); color: var(--ink); font: 17px/var(--line) "Lora", Georgia, serif; }
+
+/* The notebook page: ruled lines, red margin line */
+main {
+  position: relative; max-width: 680px; min-height: calc(100vh - 48px); margin: 24px auto;
+  padding: 32px 24px 64px 76px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--rule) 31px, var(--rule) 32px);
+}
+main::before { content: ""; position: absolute; top: 0; bottom: 0; left: 56px; width: 2px; background: var(--margin); }
+
+h1 { margin: 0; font: 700 3.4rem/64px var(--hand); color: var(--accent); }
+h2 { margin: 32px 0 0; font: 700 1.9rem/var(--line) var(--hand); }
+.sub { margin: 0; color: var(--muted); font-style: italic; }
+
+form { display: flex; align-items: flex-end; gap: 12px; }
+input[type="text"], textarea, .edit {
+  flex: 1; min-width: 0; padding: 0 4px; border: 0; border-bottom: 2px solid var(--ink); border-radius: 0;
+  background: transparent; color: var(--ink); font: inherit; line-height: var(--line);
+}
+textarea { resize: vertical; }
+input[type="text"]::placeholder, textarea::placeholder { color: var(--muted); font-style: italic; }
+
+button {
+  padding: 0 12px; border: 2px solid var(--accent); border-radius: 4px; background: transparent;
+  color: var(--accent); font: 700 1.2rem/28px var(--hand); cursor: pointer;
+}
+button:hover { background: var(--accent); color: var(--paper); }
+button.danger { border-color: transparent; color: var(--danger); }
+button.danger:hover { background: var(--danger); color: var(--paper); }
+button.ghost { border-color: transparent; }
+button:disabled { opacity: .5; cursor: wait; }
+:focus-visible { outline: 2px dashed var(--accent); outline-offset: 3px; }
+input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); flex: none; }
+
+ul { list-style: none; padding: 0; margin: 0; }
+li.item { margin: 0; }
+.row { display: flex; align-items: center; gap: 8px; min-height: var(--line); }
+.row .text { flex: 1; overflow-wrap: anywhere; }
+.done .text { text-decoration: line-through; text-decoration-thickness: 2px; color: var(--muted); }
+.subs { margin-left: 30px; }
+.subs li { display: flex; align-items: center; gap: 8px; }
+.empty { color: var(--muted); font-style: italic; }
+.msg { min-height: var(--line); margin: 0; color: var(--danger); font-size: .95rem; }
+
+/* AI suggestions show up as a sticky note */
+.review {
+  margin: 8px 0 16px; padding: 8px 14px 12px; background: var(--sticky); border-radius: 2px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .25); transform: rotate(-.6deg);
+}
+.review strong { font: 700 1.5rem/var(--line) var(--hand); }
+.review .actions { display: flex; gap: 8px; margin-top: 8px; }
+.review .edit { border-bottom-color: rgba(30, 42, 72, .5); }
+
+@media (max-width: 520px) {
+  main { margin: 0; border-radius: 0; padding: 24px 12px 48px 48px; }
+  main::before { left: 34px; }
+  h1 { font-size: 2.8rem; }
+  form { flex-direction: column; align-items: stretch; }
+  .row { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { .review { transform: none; } }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taskbreak</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Taskbreak</h1>
+    <p class="sub">Add a task. If it's big, let the AI split it into steps.</p>
+
+    <section aria-labelledby="tasks-h">
+      <h2 id="tasks-h">Tasks</h2>
+      <form id="task-form">
+        <input id="task-input" type="text" maxlength="200" placeholder="e.g. Plan a birthday party" aria-label="New task">
+        <button type="submit">Add task</button>
+      </form>
+      <p id="task-msg" class="msg" role="status"></p>
+      <ul id="task-list"></ul>
+    </section>
+
+    <section aria-labelledby="notes-h">
+      <h2 id="notes-h">Notes</h2>
+      <form id="note-form">
+        <textarea id="note-input" rows="3" placeholder="Write a note" aria-label="New note"></textarea>
+        <button type="submit">Save note</button>
+      </form>
+      <ul id="note-list"></ul>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
